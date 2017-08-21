@@ -26,19 +26,19 @@ import com.shekhar.snakeandladder.core.Player;
  * @organization Actoserba
  * @Date 21-Aug-2017
  */
-public class Transition<I, L> {
+public class Transition {
 
-	private I i;
+	private Integer i;
 	private State s;
-	private L l;
+	private Integer l;
 
-	public Transition(I i, State s, L l) {
+	public Transition(Integer i, State s, Integer l) {
 		this.i = i;
 		this.s = s;
 		this.l = l;
 	}
 
-	public I getInitial() {
+	public Integer getInitial() {
 		return i;
 
 	};
@@ -48,14 +48,14 @@ public class Transition<I, L> {
 
 	};
 
-	public L getLast() {
+	public Integer getLast() {
 		return l;
 
 	};
 
 	public void transit(Player player) {
 		getState().getEvent().init(player).healthDownByOne()
-				.execute(getLast() == null ? player.getPostion() + player.getDiceFace() : (int) getLast()).acknowledge();
+				.execute(getLast() == null ? player.getPostion() + player.getDiceFace() : getLast()).acknowledge();
 	}
 
 }

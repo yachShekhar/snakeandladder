@@ -1,21 +1,4 @@
 
-/*************************************************************************
- *
- * ZIVAME CONFIDENTIAL
- * ___________________
- *
- *  (C) 2017 Actoserba
- *  All Rights Reserved.
- *
- * NOTICE:  All information contained herein is, and remains
- * the property of Actoserba and its suppliers,
- * if any.  The intellectual and technical concepts contained
- * herein are proprietary may be covered by India and Foreign Patents,
- * patents in process, and are protected by trade secret or copyright law.
- * Dissemination of this information or reproduction of this material
- * is strictly forbidden unless prior written permission is obtained
- * from Actoserba.
- */
 package com.shekhar.snakeandladder.core;
 
 import java.util.ArrayList;
@@ -31,8 +14,7 @@ import com.shekhar.snakeandladder.event.Transition;
 /**
  * @author Chandra Shekhar Yadav
  * @version 1.0
- * @organization Actoserba
- * @Date 19-Aug-2017
+ * @Date 18-Aug-2017
  */
 public abstract class Game {
 
@@ -60,7 +42,7 @@ public abstract class Game {
 
 	public abstract List<Player> getPlayer();
 
-	public abstract List<Transition<Integer, Integer>> getTransitions();
+	public abstract List<Transition> getTransitions();
 
 	public abstract Player winner();
 
@@ -160,7 +142,7 @@ public abstract class Game {
 	private static class SnakeLadderGame extends Game {
 		private GameBuilder gmBuilder;
 		private List<Player> players = new LinkedList<>();
-		private List<Transition<Integer, Integer>> transitions = new ArrayList<>();
+		private List<Transition> transitions = new ArrayList<>();
 		private Player winner;
 
 		SnakeLadderGame(GameBuilder gmBuilder) {
@@ -206,21 +188,21 @@ public abstract class Game {
 		}
 
 		@Override
-		public List<Transition<Integer, Integer>> getTransitions() {
+		public List<Transition> getTransitions() {
 			if (transitions.isEmpty()) {
 				for (int[] snakeSq : gmBuilder.snakeSquare) {
-					Transition<Integer, Integer> transition = new Transition<>(snakeSq[0], State.SNAKE, snakeSq[1]);
+					Transition transition = new Transition(snakeSq[0], State.SNAKE, snakeSq[1]);
 					transitions.add(transition);
 				}
 				for (int[] ladderSq : gmBuilder.ladderSquare) {
-					Transition<Integer, Integer> transition = new Transition<>(ladderSq[0], State.LADDER, ladderSq[1]);
+					Transition transition = new Transition(ladderSq[0], State.LADDER, ladderSq[1]);
 					transitions.add(transition);
 				}
 				for (int healthSq : gmBuilder.healthSqaure) {
-					Transition<Integer, Integer> transition = new Transition<>(healthSq, State.HEALTH, null);
+					Transition transition = new Transition(healthSq, State.HEALTH, null);
 					transitions.add(transition);
 				}
-				Transition<Integer, Integer> transition = new Transition<>(getNoOfSquare(), State.WINNER, getNoOfSquare());
+				Transition transition = new Transition(getNoOfSquare(), State.WINNER, getNoOfSquare());
 				transitions.add(transition);
 			}
 			return transitions;
